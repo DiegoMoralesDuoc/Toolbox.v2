@@ -1,0 +1,68 @@
+<div class="app-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3 class="mb-0">Perfil</h3>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <!-- Card con información del usuario -->
+      <div class="col-sm-6">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Información</h5>
+          </div>
+            <div *ngIf="currentUser as user; else noUser">
+              <p><strong>Nombre: </strong> {{ user.name }}</p>
+              <p><strong>Correo: </strong> {{ user.email }}</p>
+              <p><strong>Rol: </strong> {{ user.rol || 'No definido' }}</p>
+            </div>
+            <ng-template #noUser>
+              <div class="text-danger">Usuario no disponible.</div>
+            </ng-template>
+
+      </div>
+
+      <!-- Card para actualizar correo o contraseña -->
+      <div class="col-sm-6">
+        <div class="card shadow-sm">
+          <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Actualizar datos</h5>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="actualizarDatos()">
+              <div class="mb-3">
+                <label for="nuevoCorreo" class="form-label">Nuevo correo</label>
+                <input
+                  type="email"
+                  [(ngModel)]="nuevoCorreo"
+                  name="nuevoCorreo"
+                  id="nuevoCorreo"
+                  class="form-control"
+                  placeholder="nuevo@email.com"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="nuevaPassword" class="form-label">Nueva contraseña</label>
+                <input
+                  type="password"
+                  [(ngModel)]="nuevaPassword"
+                  name="nuevaPassword"
+                  id="nuevaPassword"
+                  class="form-control"
+                  placeholder="********"
+                />
+              </div>
+
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

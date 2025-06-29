@@ -29,8 +29,16 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
+              "styles": [
+              "src/styles.scss",
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "node_modules/overlayscrollbars/styles/overlayscrollbars.css"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/overlayscrollbars/browser/overlayscrollbars.browser.es6.js"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -93,7 +101,11 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "node_modules/overlayscrollbars/styles/overlayscrollbars.css"
             ]
           }
         }

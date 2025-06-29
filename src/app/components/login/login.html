@@ -1,0 +1,46 @@
+<div class="login-page bg-body-secondary">
+  <div class="container mt-2"></div>
+  <div class="login-box">
+    <div class="card card-outline card-primary">
+      <div class="card-header">
+        <a class="link-dark text-center link-offset-2 link-opacity-100">
+          <h1 class="mb-0"><b>Toolbox</b></h1>
+        </a>
+      </div>
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Inicio de sesión</p>
+        <form (ngSubmit)="login()">
+          <div class="input-group mb-1">
+            <div class="form-floating">
+              <input type="email" [(ngModel)]="email" name="email" class="form-control" id="loginEmail" required />
+              <label for="loginEmail">Email</label>
+            </div>
+            <div class="input-group-text"><span class="bi bi-envelope"></span></div>
+          </div>
+
+          <div class="input-group mb-1">
+            <div class="form-floating">
+              <input type="password" [(ngModel)]="password" name="password" class="form-control" id="loginPassword" required />
+              <label for="loginPassword">Contraseña</label>
+            </div>
+            <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
+          </div>
+
+          <div class="row">
+            <div class="col-8 d-inline-flex align-items-center">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="rememberMe" [(ngModel)]="remember" name="remember" />
+                <label class="form-check-label" for="rememberMe"> Recordar </label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Ingresar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

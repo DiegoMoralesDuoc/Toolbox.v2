@@ -1,0 +1,34 @@
+    <div class="app-content">
+      <div class="container-fluid">
+        <!-- Aquí va todo el contenido del dashboard (small boxes, tablas, charts, etc) -->
+        <div class="row">
+          <div class="col-lg-3 col-6" *ngFor="let box of smallBoxes">
+            <div [ngClass]="'small-box text-bg-' + box.bgClass">
+              <div class="inner">
+                <h3>
+                  {{ box.number }}
+                  <sup *ngIf="box.sup" class="fs-5">{{ box.sup }}</sup>
+                </h3>
+                <p>{{ box.text }}</p>
+              </div>
+              <svg
+                class="small-box-icon"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path [attr.d]="box.svgPath"></path>
+              </svg>
+              <a href="#" [ngClass]="box.linkClass" class="small-box-footer">
+                More info <i class="bi bi-link-45deg"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agrega el resto del contenido según el HTML original -->
+        <!-- Por ejemplo, cards, tablas, etc... -->
+
+      </div>
+    </div>

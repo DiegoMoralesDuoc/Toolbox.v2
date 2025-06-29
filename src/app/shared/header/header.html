@@ -1,0 +1,59 @@
+
+<!-- Header Navbar -->
+<nav class="app-header navbar navbar-expand bg-dark" data-bs-theme="dark">
+  
+  <div class="container-fluid">
+      <!--begin::Sidebar Brand-->
+      <div class="sidebar-brand">
+        <button (click)="toggleSidebar.emit()" class="btn btn-outline-light me-2 btn-sm">
+          <i class="bi bi-tools fs-2 me-2"></i>
+          <span class="brand-text fw-light ">Toolbox</span>
+        </button>
+      </div>
+      <!--end::Sidebar Brand-->
+    <ul class="navbar-nav ms-auto align-items-center d-flex gap-2">
+
+      <!-- Navbar Search -->
+      <li class="nav-item">
+        <a class="nav-link" data-widget="navbar-search" role="button">
+          <i class="bi bi-search"></i>
+        </a>
+      </li>
+
+      <!-- Notifications Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-bs-toggle="dropdown" >
+          <i class="bi bi-bell-fill"></i>
+          <span class="navbar-badge badge text-bg-warning">4</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+          <span class="dropdown-item dropdown-header">4 Notificaciones</span>
+          <div class="dropdown-divider"></div>
+          <a  class="dropdown-item">
+            <i class="bi bi-file-earmark-fill me-2"></i> 3 nuevos reportes
+            <span class="float-end text-secondary fs-7">2 días</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a  class="dropdown-item">
+            <i class="bi bi-exclamation-lg me-2"></i> 1 nueva alerta
+            <span class="float-end text-secondary fs-7">30 minutos</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a  class="dropdown-item dropdown-footer">Ver todo</a>
+        </div>
+      </li>
+
+      <!-- Perfil del Usuario -->
+      <li class="nav-item me-2">
+        <a routerLink="perfil" class="btn btn-dark">
+          {{ userName || 'Cargando...' }}
+        </a>
+      </li>
+
+      <!-- Logout -->
+      <li class="nav-item">
+        <button (click)="logout()" class="btn btn-danger">Cerrar Sesión</button>
+      </li>
+    </ul>
+  </div>
+</nav>

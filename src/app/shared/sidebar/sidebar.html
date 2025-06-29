@@ -1,0 +1,56 @@
+<aside data-bs-theme="dark" class="app-sidebar bg-dark" [class.show]="visible">
+  <!--begin::Sidebar Wrapper-->
+  <div class="sidebar-wrapper">
+    <nav class="mt-2">
+      <ul
+        class="nav sidebar-menu flex-column"
+        data-lte-toggle="treeview"
+        role="menu"
+        data-accordion="false"
+      >
+        <li class="nav-item menu-open">
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a routerLink="dashboard" routerLinkActive="active" class="nav-link">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!--begin::Apartado Administración/Jefatura-->
+        <ng-container *ngIf="showAdminSection">
+          <hr style="border: none; border-top: 1px solid #ccc;" />
+          <li class="nav-header">Administración</li>
+          <li class="nav-item">
+            <a routerLink="listalluser" class="nav-link">
+              <i class="nav-icon bi bi-card-checklist text-center"></i>
+              <p class="text-center">
+                Lista de usuarios
+              </p>
+            </a>
+            <ul class="nav nav-arrow">
+              <li class="nav-item">
+                <a routerLink="register" class="nav-link">
+                  <i class="nav-icon bi bi-person-add"></i>
+                  <p>Registrar nuevo usuario</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <hr style="border: none; border-top: 1px solid #ccc;" />
+        </ng-container>
+        <!--end::Apartado Administración/Jefatura-->
+
+        <li class="nav-item">
+          <a routerLink="about" class="nav-link">
+            <i class="nav-icon bi bi-question-circle-fill"></i>
+            <p>Contacto</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <!--end::Sidebar Wrapper-->
+</aside>
