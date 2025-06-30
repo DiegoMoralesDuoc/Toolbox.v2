@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { AuthGuard } from './auth-guard';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthGuard } from './auth.guard';
+import { RouterStateSnapshot } from '@angular/router';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
@@ -28,14 +29,20 @@ describe('AuthGuard', () => {
       if (key === 'isLoggedIn') return 'true';
       return null;
     });
-    const canActivate = guard.canActivate({} as any, { url: '/dashboard' } as any);
+
+    const state = { url: 'dashboard' } as RouterStateSnapshot;
+    const canActivate = guard.canActivate({} as any, state);
     expect(canActivate).toBeTrue();
   });
 
   it('should deny access and redirect when not logged in', () => {
     spyOn(sessionStorage, 'getItem').and.returnValue(null);
-    const canActivate = guard.canActivate({} as any, { url: '/dashboard' } as any);
+
+    const state = { url: 'dashboard' } as RouterStateSnapshot;
+    const canActivate = guard.canActivate({} as any, state);
     expect(canActivate).toBeFalse();
-    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    expect(router.navigate).toHaveBeenCalledWith(['/login'], {
+      queryParams: { returnUrl: 'dashboard' }
+    });
   });
 });

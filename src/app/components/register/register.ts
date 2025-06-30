@@ -1,25 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 
 interface Usuario {
   email: string;
   name: string;
   password: string;
-  role: string;
+  rol: string;
 }
 
 @Component({
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.html',
-  styleUrls: ['./register.scss']
+  styleUrls: ['./register.scss'],
+  imports: [FormsModule,CommonModule  ]
 })
 export class Register implements OnInit {
   name: string = '';
   email: string = '';
   password: string = '';
-  role: string = 'user'; // valor por defecto
-  alerta: { mensaje: string; tipo: string } | null = null;
+  rol: string = 'user'; // valor por defecto
+  alerta: { mensaje: string; tipo: 'success' | 'danger' | 'warning' } | null = null;
 
   usuarios: Usuario[] = [];
 
@@ -28,7 +32,7 @@ export class Register implements OnInit {
   ngOnInit(): void {
     // Validar permisos
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
-    if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'jefatura')) {
+    if (!currentUser || (currentUser.rol !== 'admin' && currentUser.rol !== 'jefatura')) {
       alert('No tienes permiso para registrar usuarios');
       this.router.navigate(['/dashboard']);
       return;
@@ -37,14 +41,28 @@ export class Register implements OnInit {
     this.usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
   }
 
-  mostrarAlerta(mensaje: string, tipo: string = 'success') {
+  mostrarAlerta(mensaje: string, tipo: 'success' | 'danger' | 'warning' = 'success') {
     this.alerta = { mensaje, tipo };
     setTimeout(() => (this.alerta = null), 5000);
   }
 
+  validarContrasena(password: string): boolean {
+    // Al menos 8 caracteres, 1 mayúscula, 1 número y 1 símbolo
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    return regex.test(password);
+  }
+
   registrarUsuario() {
-    if (this.password.length < 8) {
-      this.mostrarAlerta('La contraseña debe tener al menos 8 caracteres.', 'danger');
+    if (!this.name.trim() || !this.email.trim() || !this.password) {
+      this.mostrarAlerta('Por favor completa todos los campos.', 'danger');
+      return;
+    }
+
+    if (!this.validarContrasena(this.password)) {
+      this.mostrarAlerta(
+        'La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo.',
+        'danger'
+      );
       return;
     }
 
@@ -58,7 +76,7 @@ export class Register implements OnInit {
       email: this.email,
       name: this.name,
       password: this.password,
-      role: this.role,
+      rol: this.rol,
     };
 
     this.usuarios.push(nuevoUsuario);
@@ -72,6 +90,6 @@ export class Register implements OnInit {
     this.name = '';
     this.email = '';
     this.password = '';
-    this.role = 'user';
+    this.rol = 'user';
   }
 }

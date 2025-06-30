@@ -1,0 +1,42 @@
+<div class="app-content p-4">
+  <div class="container-fluid">
+    <div class="card shadow-sm mx-auto" style="max-width: 900px;">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Tickets Levantados</h5>
+      </div>
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Asunto</th>
+              <th>Fecha</th>
+              <th>Problema Relacionado</th>
+              <th>Descripción</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ticket of tickets">
+              <td>{{ ticket.id }}</td>
+              <td>{{ ticket.asunto }}</td>
+              <td>{{ ticket.fecha }}</td>
+              <td>{{ ticket.problemaRelacionado }}</td>
+              <td>{{ ticket.descripcion }}</td>
+              <td>{{ ticket.estado }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="eliminarTicket(ticket.id)">
+                  <i class="bi bi-trash"></i> Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="tickets.length === 0">
+              <td colspan="7" class="text-center">No hay tickets registrados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

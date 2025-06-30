@@ -7,22 +7,38 @@
     </div>
 
     <div class="row mt-4">
+
       <!-- Card con información del usuario -->
       <div class="col-sm-6">
         <div class="card shadow-sm">
           <div class="card-header bg-primary text-white">
             <h5 class="mb-0">Información</h5>
           </div>
-            <div *ngIf="currentUser as user; else noUser">
-              <p><strong>Nombre: </strong> {{ user.name }}</p>
-              <p><strong>Correo: </strong> {{ user.email }}</p>
-              <p><strong>Rol: </strong> {{ user.rol || 'No definido' }}</p>
+            <div *ngIf="currentUser as user; else noUser" class="px-3 py-2">
+              <div class="mb-3 row">
+                  <label class="col-sm-4 col-form-label fw-semibold">Nombre:</label>
+                  <div class="col-sm-8">
+                    <p class="form-control-plaintext mb-0">{{ user.name }}</p>
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label class="col-sm-4 col-form-label fw-semibold">Correo:</label>
+                  <div class="col-sm-8">
+                    <p class="form-control-plaintext mb-0">{{ user.email }}</p>
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label class="col-sm-4 col-form-label fw-semibold">Rol:</label>
+                  <div class="col-sm-8">
+                    <p class="form-control-plaintext mb-0">{{ user.rol || 'No definido' }}</p>
+                  </div>
+             </div>
             </div>
             <ng-template #noUser>
               <div class="text-danger">Usuario no disponible.</div>
             </ng-template>
-
-      </div>
+          </div>
+        </div>
 
       <!-- Card para actualizar correo o contraseña -->
       <div class="col-sm-6">

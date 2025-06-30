@@ -8,21 +8,15 @@ interface Usuario {
   email: string;
   name: string;
   password: string;
-  role: string;
+  rol: string;
 }
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './login.html',
-  styleUrls: ['./login.scss'],  template: `<h1>Login Test</h1>
-    <form (ngSubmit)="login()">
-      <input [(ngModel)]="email" name="email" placeholder="Email" />
-      <input [(ngModel)]="password" name="password" placeholder="Password" type="password" />
-      <button type="submit">Ingresar</button>
-    </form>
-  `
+  templateUrl: 'login.html',
+  styleUrls: ['./login.scss']
 })
 export class Login implements OnInit {
   email: string = '';
@@ -36,9 +30,12 @@ export class Login implements OnInit {
   ) {}
 
   ngOnInit(): void {
+      console.log('[LoginComponent] ngOnInit called');
     if (isPlatformBrowser(this.platformId)) {
       const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+          console.log('[LoginComponent] ngOnInit - isLoggedIn from sessionStorage:', isLoggedIn);
       if (isLoggedIn) {
+              console.log('[LoginComponent] ngOnInit - Already logged in, redirecting to dashboard');
         this.router.navigate(['dashboard']);
         return;
       }
@@ -54,7 +51,7 @@ export class Login implements OnInit {
           email: 'diego.morales.alfaro@gmail.com',
           name: 'Diego Morales Alfaro',
           password: 'admin',
-          role: 'admin',
+          rol: 'admin',
         };
         this.usuarios.push(adminDefault);
         localStorage.setItem('usuarios', JSON.stringify(this.usuarios));

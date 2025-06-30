@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       const user = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
-      this.showAdminSection = !!(user && (user.role === 'admin' || user.role === 'jefatura'));
+      this.showAdminSection = !!(user && (user.rol === 'admin' || user.rol === 'jefatura'));
     }
   }
 }

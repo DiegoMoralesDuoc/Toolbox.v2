@@ -1,0 +1,49 @@
+<div class="app-content p-4">
+    <div class="container-fluid">
+          <div class="card shadow-sm mx-auto" style="max-width: 900px;">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">Levantar Ticket</h5>
+            </div>
+            <form (ngSubmit)="registrarTicket()" #formTicket="ngForm" novalidate>
+              <div class="card-body">
+                <div class="form-floating mb-3">
+                  <input id="asunto" type="text" class="form-control" required [(ngModel)]="asunto" name="asunto" />
+                  <label for="asunto">Asunto</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input id="fecha" type="date" class="form-control" required max="{{ hoy }}" [(ngModel)]="fecha" name="fecha" />
+                  <label for="fecha">Fecha del problema</label>
+                </div>
+
+                <div class="mb-3">
+                  <label for="problema" class="form-label">Problema relacionado</label>
+                  <select id="problema" class="form-select" [(ngModel)]="problemaRelacionado" name="problemaRelacionado">
+                    <option value="Usuarios">Usuarios</option>
+                    <option value="Registros">Registros</option>
+                    <option value="Funcionalidad">Funcionalidad</option>
+                    <option value="Otros">Otros</option>
+                  </select>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <textarea
+                    id="descripcion"
+                    class="form-control"
+                    placeholder="Describe el problema"
+                    style="height: 120px"
+                    name="descripcion"
+                    [(ngModel)]="descripcion"
+                    required
+                  ></textarea>
+                  <label for="descripcion">Descripción</label>
+                </div>
+              </div>
+
+              <div class="card-footer text-end">
+                <button type="submit" class="btn btn-primary">Enviar Ticket</button>
+              </div>
+            </form>
+    </div>
+  </div>
+</div>

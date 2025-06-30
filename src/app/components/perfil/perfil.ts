@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from '../../shared/header/header';
-import { SidebarComponent } from '../../shared/sidebar/sidebar';
-import { FooterComponent } from '../../shared/footer/footer';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 interface Usuario {
   email: string;
@@ -16,7 +14,7 @@ interface Usuario {
   templateUrl: './perfil.html',
   standalone: true,
   styleUrls: ['./perfil.scss'],
-  imports: [HeaderComponent, SidebarComponent, FooterComponent, FormsModule]
+  imports: [ CommonModule,FormsModule]
 })
 export class Perfil implements OnInit {
   currentUser: Usuario | null = null;
