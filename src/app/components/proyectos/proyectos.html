@@ -1,0 +1,96 @@
+<div class="app-content p-4">
+  <div class="container-fluid">
+    <div class="card shadow-sm mb-4">
+      <ng-container *ngIf="showAdminSection">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Agregar Proyecto</h5>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="proyectoForm" (ngSubmit)="agregarProyecto()">
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="nombre">Nombre Proyecto</label>
+                <input type="text" id="nombre" class="form-control" formControlName="nombre" />
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label for="region">Región</label>
+                <select id="region" class="form-select" formControlName="region">
+                  <option value="" disabled selected>Seleccione una región</option>
+                  <option *ngFor="let region of regiones" [value]="region">{{ region }}</option>
+                </select>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label for="comuna">Comuna</label>
+                <select id="comuna" class="form-select" formControlName="comuna" [disabled]="comunasFiltradas.length === 0">
+                  <option value="" disabled selected>Seleccione una comuna</option>
+                  <option *ngFor="let comuna of comunasFiltradas" [value]="comuna">{{ comuna }}</option>
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" class="form-control" formControlName="direccion" />
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="jefe">Jefe a Cargo</label>
+                <select id="jefe" class="form-select" formControlName="jefe">
+                  <option value="" disabled selected>Seleccione un jefe</option>
+                  <option *ngFor="let jefe of jefes" [value]="jefe.email">
+                    {{ jefe.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn-success" type="submit" [disabled]="!proyectoForm.valid">
+              Agregar Proyecto
+            </button>
+          </form>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">Listado de Proyectos</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>Nombre</th>
+              <th>Región</th>
+              <th>Comuna</th>
+              <th>Dirección</th>
+              <th>Jefe a Cargo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of proyectos">
+              <td>{{ p.nombre }}</td>
+              <td>{{ p.region }}</td>
+              <td>{{ p.comuna }}</td>
+              <td>{{ p.direccion }}</td>
+              <td>{{ p.jefe }}</td>
+              <td>
+                <ng-container *ngIf="showAdminSection">
+                  <button class="btn btn-danger btn-sm" (click)="eliminarProyecto(p.nombre)">
+                    <i class="bi bi-trash"></i> Eliminar
+                  </button>
+                </ng-container>
+              </td>
+            </tr>
+            <tr *ngIf="proyectos.length === 0">
+              <td colspan="6" class="text-center">No hay proyectos registrados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

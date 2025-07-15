@@ -2,6 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 
+    /**
+    * Componente que registra nuevos tickets en el sistema
+    */
+
+
+    /**
+    * Interfaz de ticket
+    */
+
 interface Ticket {
   id: number;
   asunto: string;
@@ -30,6 +39,11 @@ export class Soporte implements OnInit {
     this.hoy = hoy.toISOString().split('T')[0];
   }
 
+    /**
+    * Registro de nuevo ticket
+    * con alerta en caso que falten campos por completar
+    */  
+   
   registrarTicket() {
     if (!this.asunto || !this.fecha || !this.descripcion) {
       Swal.fire('Faltan campos', 'Completa todos los campos obligatorios', 'warning');
@@ -37,6 +51,10 @@ export class Soporte implements OnInit {
     }
 
     const tickets: Ticket[] = JSON.parse(localStorage.getItem('tickets') || '[]');
+
+    /**
+    * Obtencion de valores de los campos del ticket 
+    */
 
     const nuevoTicket: Ticket = {
       id: Date.now(),
@@ -52,7 +70,10 @@ export class Soporte implements OnInit {
 
     Swal.fire('Enviado', 'El ticket fue registrado correctamente', 'success');
 
-    // Resetear formulario
+    /**
+    * Limpia el formulario
+    */
+
     this.asunto = '';
     this.fecha = '';
     this.problemaRelacionado = 'Usuarios';

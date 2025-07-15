@@ -4,6 +4,15 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 
+    /**
+    * Componente que permite el inicio de sesion al sistema
+    */
+
+
+  /**
+    * Interfaz de usuario
+    */
+
 interface Usuario {
   email: string;
   name: string;
@@ -18,6 +27,11 @@ interface Usuario {
   templateUrl: 'login.html',
   styleUrls: ['./login.scss']
 })
+
+  /**
+    * Agregamos si quieremos que el usuario sea recordado
+    */
+
 export class Login implements OnInit {
   email: string = '';
   password: string = '';
@@ -29,6 +43,9 @@ export class Login implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
+  /**
+    * En caso que el usuario este conectado, se redirige a dashboard automáticamente
+    */
   ngOnInit(): void {
       console.log('[LoginComponent] ngOnInit called');
     if (isPlatformBrowser(this.platformId)) {
@@ -46,6 +63,11 @@ export class Login implements OnInit {
         (user) => user.email === 'diego.morales.alfaro@gmail.com'
       );
 
+  /**
+    * Se crea automáticamente un usuario tipo admin 
+    * como primer usuario de forma automática, 
+    * solo en el caso que no exista otro usuario tipo admin
+    */
       if (!adminExiste) {
         const adminDefault: Usuario = {
           email: 'diego.morales.alfaro@gmail.com',
@@ -68,20 +90,29 @@ export class Login implements OnInit {
     }
   }
 
+    /**
+    * Permite hacer el login de usuario
+    * siempre y cuando el correo con la contraseña coincidan
+    */
   public login(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
     const usuario = this.usuarios.find(
       (user) => user.email === this.email && user.password === this.password
     );
+  /**
+    * Guarda sesión
+    */
 
     if (usuario) {
-      // Guardar sesión
       console.log('SESION GUARDADA');
       sessionStorage.setItem('isLoggedIn', 'true');
       sessionStorage.setItem('currentUser', JSON.stringify(usuario));
 
-      // Guardar o eliminar correo recordado
+  /**
+    * Guardar o eliminar correo recordado
+    */
+
       if (this.remember) {
         localStorage.setItem('savedEmail', this.email);
         localStorage.setItem('remember', 'true');
@@ -90,6 +121,9 @@ export class Login implements OnInit {
         localStorage.removeItem('remember');
       }
 
+  /**
+    * Alertas de inicio de sesión exitoso o fallido
+    */
       Swal.fire({
         icon: 'success',
         title: '¡Inicio de sesión exitoso!',

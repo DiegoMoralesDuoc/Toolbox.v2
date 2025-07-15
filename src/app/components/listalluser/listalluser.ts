@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
+    /**
+    * Componente que lista todos los usuarios del sistema
+    * tambien permite eliminar segun el rol
+    */
+
+
+  /**
+    * Intefaz de usuario con sus valores
+    */
+
 interface Usuario {
   name: string;
   email: string;
@@ -14,6 +25,11 @@ interface Usuario {
   templateUrl: './listalluser.html',
   styleUrls: ['./listalluser.scss'],
 })
+
+  /**
+    * Lista todos los usuarios que existen registrados en el sistema
+    */
+
 export class Listalluser implements OnInit {
   usuarios: Usuario[] = [];
 

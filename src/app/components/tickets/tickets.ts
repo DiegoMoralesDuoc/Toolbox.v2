@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+    /**
+    * Componente que obtiene y muestra todos los tickets del sistema
+    */
+
+
+    /**
+    * Interfaz de tickets
+    */
+
 interface Ticket {
   id: number;
   asunto: string;
@@ -20,9 +29,16 @@ interface Ticket {
 export class Tickets implements OnInit {
   tickets: Ticket[] = [];
 
+    /**
+    *  Obtencion de todos los tickets levantados
+    */  
   ngOnInit(): void {
     this.tickets = JSON.parse(localStorage.getItem('tickets') || '[]');
   }
+
+    /**
+    * Eliminar un ticket levantado
+    */
 
   eliminarTicket(id: number) {
     if (confirm('¿Seguro que quieres eliminar este ticket?')) {

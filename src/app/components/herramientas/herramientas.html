@@ -1,0 +1,176 @@
+<div class="app-content p-4">
+  <div class="container-fluid">
+
+    <!-- FORMULARIO CREAR (solo admins/jefaturas) -->
+    <div class="card shadow-sm mb-4" *ngIf="showAdminSection && !herramientaSeleccionada">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Agregar Herramienta</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="herramientaForm" (ngSubmit)="agregarHerramienta()">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" class="form-control" formControlName="nombre" />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="marca">Marca</label>
+                <select id="marcaEdit" class="form-select" formControlName="marca" (change)="onMarcaChange()">
+                    <option value="">-- Seleccione marca --</option>
+                    <option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</option>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="modelo">Modelo</label>
+                <select id="modelo" class="form-select" formControlName="modelo">
+                    <option value="">-- Seleccione modelo --</option>
+                    <option *ngFor="let modelo of modelosFiltrados" [value]="modelo">{{ modelo }}</option>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="proyectoActual">Proyecto Actual</label>
+              <select id="proyectoActual" class="form-select" formControlName="proyectoActual">
+                <option value="">-- Seleccione proyecto --</option>
+                <option *ngFor="let p of proyectos" [value]="p.nombre">{{ p.nombre }}</option>
+              </select>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="usuarioCargo">Usuario a Cargo</label>
+              <select id="usuarioCargo" class="form-select" formControlName="usuarioCargo">
+                <option value="">-- Seleccione usuario --</option>
+                <option *ngFor="let u of usuariosFiltrados" [value]="u.name">{{ u.name }} ({{ u.rol }})</option>
+              </select>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="bodega">Bodega</label>
+              <input id="bodega" class="form-control" formControlName="bodega" />
+            </div>
+          </div>
+          <button class="btn btn-success" type="submit" [disabled]="!herramientaForm.valid">
+            Agregar Herramienta
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- FORMULARIO EDITAR (visible solo si hay herramientaSeleccionada) -->
+    <div class="card shadow-sm mb-4" *ngIf="herramientaSeleccionada">
+      <div class="card-header bg-warning text-dark">
+        <h5 class="mb-0">Editar Herramienta: {{ herramientaSeleccionada.nombre }}</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="herramientaForm" (ngSubmit)="guardarCambios()">
+          <div class="row">
+            <!-- Mostrar todos los campos para admin -->
+            <ng-container *ngIf="isAdmin; else soloBodegaProyecto">
+              <div class="col-md-4 mb-3">
+                <label for="nombreEdit">Nombre</label>
+                <input id="nombreEdit" class="form-control" formControlName="nombre" />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="marcaEdit">Marca</label>
+                    <select id="marcaEdit" class="form-select" formControlName="marca" (change)="onMarcaChange()">
+                        <option value="">-- Seleccione marca --</option>
+                        <option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</option>
+                    </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="modeloEdit">Modelo</label>
+                  <select id="modeloEdit" class="form-select" formControlName="modelo">
+                    <option value="">-- Seleccione modelo --</option>
+                    <option *ngFor="let modelo of modelosFiltrados" [value]="modelo">{{ modelo }}</option>
+                  </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="proyectoActualEdit">Proyecto Actual</label>
+                <select id="proyectoActualEdit" class="form-select" formControlName="proyectoActual">
+                  <option value="">-- Seleccione proyecto --</option>
+                  <option *ngFor="let p of proyectos" [value]="p.nombre">{{ p.nombre }}</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="usuarioCargoEdit">Usuario a Cargo</label>
+                <select id="usuarioCargoEdit" class="form-select" formControlName="usuarioCargo">
+                  <option value="">-- Seleccione usuario --</option>
+                  <option *ngFor="let u of usuariosFiltrados" [value]="u.name">{{ u.name }} ({{ u.rol }})</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="bodegaEdit">Bodega</label>
+                <input id="bodegaEdit" class="form-control" formControlName="bodega" />
+              </div>
+            </ng-container>
+
+            <!-- Para usuarios normales, sólo proyectoActual y bodega -->
+            <ng-template #soloBodegaProyecto>
+              <div class="col-md-6 mb-3">
+                <label for="proyectoActualEdit">Proyecto Actual</label>
+                <select id="proyectoActualEdit" class="form-select" formControlName="proyectoActual">
+                  <option value="">-- Seleccione proyecto --</option>
+                  <option *ngFor="let p of proyectos" [value]="p.nombre">{{ p.nombre }}</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="bodegaEdit" class="form-label">Bodega</label>
+                <input id="bodegaEdit" class="form-control" formControlName="bodega" />
+              </div>
+            </ng-template>
+          </div>
+          <button class="btn btn-primary" type="submit" [disabled]="!herramientaForm.valid">
+            Guardar Cambios
+          </button>
+          <button class="btn btn-secondary ms-2" type="button" (click)="cancelarEdicion()">
+            Cancelar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- TABLA DE LISTADO -->
+    <div class="card shadow-sm">
+      <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">Listado de Herramientas</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>Nombre</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Proyecto Actual</th>
+              <th>Usuario a Cargo</th>
+              <th>Bodega</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let h of herramientas">
+              <td>{{ h.nombre }}</td>
+              <td>{{ h.marca }}</td>
+              <td>{{ h.modelo }}</td>
+              <td>
+                {{ h.proyectoActual || '-' }}
+                <button *ngIf="!h.proyectoActual" class="btn btn-sm btn-outline-secondary ms-2" (click)="modificarHerramienta(h.nombre)">Marcar en Bodega</button>
+              </td>
+              <td>{{ h.usuarioCargo || '-' }}</td>
+              <td>{{ h.bodega }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" *ngIf="showAdminSection" (click)="eliminarHerramienta(h.nombre)">
+                  <i class="bi bi-trash"></i> Eliminar
+                </button>
+                <button class="btn btn-warning btn-sm ms-2" (click)="modificarHerramienta(h.nombre)">
+                  <i class="bi bi-pencil"></i> Modificar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="herramientas.length === 0">
+              <td colspan="7" class="text-center">No hay herramientas registradas.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

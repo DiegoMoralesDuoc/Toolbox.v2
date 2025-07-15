@@ -4,6 +4,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
+    
+   /**
+    * Componente que se utiliza como pagina inicial del sistema
+    * muestra 4 cuadros con informacion del sistema
+    */
+
+
 
 interface SmallBox {
   number: number | string;
@@ -24,6 +31,13 @@ interface SmallBox {
     FormsModule
   ],
 })
+
+/**
+ * Servicio que maneja la página de dashboard
+ * en la cual habrá 4 cuadros de información respecto a cantidades de
+ * usuarios / tickets / proyectos / herramientas.
+ */
+
 export class Dashboard implements OnInit {
   smallBoxes: SmallBox[] = [];
 
@@ -31,6 +45,11 @@ export class Dashboard implements OnInit {
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
+
+      /**
+       * @deprecated Parámetro que impide ingresar a dashboard en caso que quiera ingresar
+       * Deprecado por Authguard
+       */
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -41,8 +60,15 @@ export class Dashboard implements OnInit {
         return;
       }
 
+      /**
+       * Obtención de valor de los 4 tipos de registros para mostrar
+       * y visualización en smallboxes
+       */
+
       const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
       const tickets = JSON.parse(localStorage.getItem('tickets') || '[]');
+      const proyectos = JSON.parse(localStorage.getItem('proyectos') || '[]');
+      const herramientas = JSON.parse(localStorage.getItem('herramientas') || '[]');      
 
       this.smallBoxes = [
         {
@@ -60,18 +86,17 @@ export class Dashboard implements OnInit {
           linkClass: 'link-light link-underline-opacity-0 link-underline-opacity-50-hover'
         },
         {
-          number: '53',
-          sup: '%',
-          text: 'Bounce Rate',
+          number: proyectos.length,
+          text: 'Proyectos',
           bgClass: 'warning',
-          svgPath: `<path d="M2.25 13.5a8.25 8.25 0 018.25-8.25..."></path>`,
-          linkClass: 'link-dark link-underline-opacity-0 link-underline-opacity-50-hover'
+          svgPath: `<path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c..."></path>`,
+          linkClass: 'link-light link-underline-opacity-0 link-underline-opacity-50-hover'
         },
         {
-          number: 65,
-          text: 'Unique Visitors',
+          number: herramientas.length,
+          text: 'Herramientas',
           bgClass: 'danger',
-          svgPath: `<path d="M6.25 6.375a4.125 4.125 0 118.25 0 ..."></path>`,
+          svgPath: `<path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c..."></path>`,
           linkClass: 'link-light link-underline-opacity-0 link-underline-opacity-50-hover'
         }
       ];

@@ -2,6 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+    /**
+    * Componente que muestra los datos del usuario conectado
+    * y permite modificar sus datos como correo y contraseña
+    */
+
+
+    /**
+    * interfaz de usuario
+    */
+
 interface Usuario {
   email: string;
   name: string;
@@ -16,16 +26,32 @@ interface Usuario {
   styleUrls: ['./perfil.scss'],
   imports: [ CommonModule,FormsModule]
 })
+
+    /**
+    * Solo se puede modificar el correo y contraseña
+    * del usuario conectado
+    */
+
 export class Perfil implements OnInit {
   currentUser: Usuario | null = null;
   nuevoCorreo: string = '';
   nuevaPassword: string = '';
+
+    /**
+    * Obtencion de dato del usuario conectado 
+    */
 
   ngOnInit(): void {
     const userData = sessionStorage.getItem('currentUser');
     this.currentUser = userData ? JSON.parse(userData) : null;
   }
 
+    /**
+    * Actualizacion de datos del usuario, en caso que el usuario actual 
+    * sea distinto al conectado, retrocede.
+    * 
+    * Solo permite el cambio de contraseña y de correo
+    */  
   actualizarDatos(): void {
     if (!this.currentUser) return;
 
@@ -40,12 +66,14 @@ export class Perfil implements OnInit {
         usuarios[index].password = this.nuevaPassword;
       }
 
-      // Actualizar sessionStorage y localStorage
+    /**
+    * Actualizar sessionStorage y localStorage
+    */      
       sessionStorage.setItem('currentUser', JSON.stringify(usuarios[index]));
       localStorage.setItem('usuarios', JSON.stringify(usuarios));
 
-      alert('Datos actualizados correctamente.');
-      // Puedes recargar o actualizar la vista, o resetear inputs:
+      alert('Datos actualizados correctamente.');    
+
       this.currentUser = usuarios[index];
       this.nuevoCorreo = '';
       this.nuevaPassword = '';

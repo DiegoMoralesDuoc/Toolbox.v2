@@ -1,0 +1,118 @@
+<div class="app-content p-4">
+  <div class="container-fluid">
+    <div class="row mb-4">
+      
+      <!-- Sidebar de categorías -->
+      <div class="col-md-3">
+        <div class="list-group">
+          <button 
+            *ngFor="let cat of materiales" 
+            type="button" 
+            class="list-group-item list-group-item-action"
+            [class.active]="categoriaSeleccionada?.categoria === cat.categoria"
+            (click)="seleccionarCategoria(cat)">
+            {{ cat.categoria }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Área principal -->
+      <div class="col-md-9">
+
+
+<!-- Formulario -->
+    <div class="card shadow-sm mb-4" *ngIf="categoriaSeleccionada">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+        {{ isEditing ? 'Editar Material' : 'Agregar Material' }} 
+        en {{ categoriaSeleccionada.categoria }}
+        </h5>
+    </div>
+    <div class="card-body">
+        <form *ngIf="materialForm" [formGroup]="materialForm" (ngSubmit)="guardarMaterial()">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+            <label for="nombre">Nombre</label>
+            <input 
+                type="text" 
+                id="nombre" 
+                class="form-control" 
+                formControlName="nombre" 
+                placeholder="Ej: Caja 99x99x99" />
+            </div>
+            <div class="col-md-6 mb-3">
+            <label for="tamano">Tamaño</label>
+            <input 
+                type="text" 
+                id="tamano" 
+                class="form-control" 
+                formControlName="tamano" 
+                placeholder="Ej: 99x99x99 o 200m 2mm²" />
+            </div>
+        </div>
+        <button 
+            type="submit" 
+            class="btn btn-success"
+            [disabled]="materialForm.invalid">
+            {{ isEditing ? 'Guardar Cambios' : 'Agregar Material' }}
+        </button>
+        <button 
+            *ngIf="isEditing" 
+            type="button" 
+            class="btn btn-secondary ms-2" 
+            (click)="cancelarEdicion()">
+            Cancelar
+        </button>
+        </form>
+    </div>
+    </div>
+
+
+        <!-- Mensaje si no hay categoría -->
+        <div *ngIf="!categoriaSeleccionada" class="alert alert-info">
+          Seleccione una categoría para agregar o visualizar materiales.
+        </div>
+
+        <!-- Tabla de materiales -->
+        <div class="card shadow-sm" *ngIf="categoriaSeleccionada">
+          <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Listado de Materiales en {{ categoriaSeleccionada.categoria }}</h5>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th>Nombre</th>
+                  <th>Tamaño</th>
+                  <th style="width: 150px;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let material of categoriaSeleccionada?.materiales">
+                  <td>{{ material.nombre }}</td>
+                  <td>{{ material.tamano }}</td>
+                  <td>
+                    <button 
+                      class="btn btn-primary btn-sm me-2" 
+                      (click)="seleccionarMaterial(material)">
+                      Editar
+                    </button>
+                    <button 
+                      class="btn btn-danger btn-sm" 
+                      (click)="eliminarMaterial(material)">
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="categoriaSeleccionada?.materiales?.length === 0">
+                  <td colspan="3" class="text-center">No hay materiales en esta categoría.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

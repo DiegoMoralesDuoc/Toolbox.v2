@@ -1,0 +1,53 @@
+[
+  {
+    "categoria": "Cajas metálicas",
+    "materiales": [
+      {
+        "nombre": "Caja metálica empotrar 1x1",
+        "tamano": "100x120x80 mm"
+      },
+      {
+        "nombre": "Caja metálica empotrar 2x2",
+        "tamano": "150x150x90 mm"
+      },
+      {
+        "nombre": "Caja metálica superficie 3x3",
+        "tamano": "220x220x110 mm"
+      }
+    ]
+  },
+  {
+    "categoria": "Cables",
+    "materiales": [
+      {
+        "nombre": "Cable THW 2 hilos",
+        "tamano": "200 m - 2 mm²"
+      },
+      {
+        "nombre": "Cable THW 3 hilos",
+        "tamano": "100 m - 4 mm²"
+      },
+      {
+        "nombre": "Cable THW 4 hilos",
+        "tamano": "150 m - 6 mm²"
+      }
+    ]
+  },
+  {
+    "categoria": "Conectores",
+    "materiales": [
+      {
+        "nombre": "Conector terminal prensa",
+        "tamano": "2 mm²"
+      },
+      {
+        "nombre": "Conector terminal prensar",
+        "tamano": "4 mm²"
+      },
+      {
+        "nombre": "Conector terminal prensar",
+        "tamano": "6 mm²"
+      }
+    ]
+  }
+]

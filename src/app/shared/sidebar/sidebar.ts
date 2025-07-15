@@ -4,6 +4,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 
+    /**
+    * Componente que tiene el sidebar estatico del sistema
+    */
+
 @Component({
   selector: 'app-sidebar',
   standalone: true,
@@ -15,6 +19,11 @@ export class SidebarComponent implements OnInit {
   @Input() visible = true;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+    /**
+    * Funcionalidad que dependiendo del rol
+    * muestra otras paginas para acceder si es admin o jefatura
+    */
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {

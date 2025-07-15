@@ -6,6 +6,10 @@ import Swal from 'sweetalert2';
 import { Output, EventEmitter } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+    /**
+    * Componente que tiene el header estatico del sistema
+    */
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.html',
@@ -20,6 +24,10 @@ export class HeaderComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
+    /**
+    * Funcionalidad de mostrar el nombre del usuario conectado
+    */
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       const user = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
@@ -28,6 +36,10 @@ export class HeaderComponent implements OnInit {
       }
     }
   }
+
+    /**
+    * Funcionalidad de cerrar sesion
+    */
 
   logout() {
     if (isPlatformBrowser(this.platformId)) {

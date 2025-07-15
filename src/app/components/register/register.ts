@@ -3,6 +3,14 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+    /**
+    * Componente que registra nuevos usuarios
+    */
+
+
+    /**
+    * interfaz de usuario
+    */
 
 interface Usuario {
   email: string;
@@ -18,6 +26,12 @@ interface Usuario {
   styleUrls: ['./register.scss'],
   imports: [FormsModule,CommonModule  ]
 })
+
+    /**
+    * Se toman los valores de un registro de nuevo usuario
+    * nombre, correo, contrasena y rol
+    */
+
 export class Register implements OnInit {
   name: string = '';
   email: string = '';
@@ -29,8 +43,11 @@ export class Register implements OnInit {
 
   constructor(private router: Router) {}
 
+    /**
+    * Se validan los permisos para registrar usuarios
+    */
+
   ngOnInit(): void {
-    // Validar permisos
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
     if (!currentUser || (currentUser.rol !== 'admin' && currentUser.rol !== 'jefatura')) {
       alert('No tienes permiso para registrar usuarios');
@@ -46,12 +63,19 @@ export class Register implements OnInit {
     setTimeout(() => (this.alerta = null), 5000);
   }
 
+    /**
+    * Validacion que contraseña tenga
+    * Al menos 8 caracteres, 1 mayúscula, 1 número y 1 símbolo
+    */
+
   validarContrasena(password: string): boolean {
-    // Al menos 8 caracteres, 1 mayúscula, 1 número y 1 símbolo
     const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
     return regex.test(password);
   }
 
+    /**
+    * Validacion qque tenga todos los campos requeridos
+    */  
   registrarUsuario() {
     if (!this.name.trim() || !this.email.trim() || !this.password) {
       this.mostrarAlerta('Por favor completa todos los campos.', 'danger');
@@ -65,6 +89,11 @@ export class Register implements OnInit {
       );
       return;
     }
+
+    /**
+    * No permite crear un usuario con un correo 
+    * ya registrado
+    */
 
     const usuarioExistente = this.usuarios.find(user => user.email === this.email);
     if (usuarioExistente) {
@@ -85,6 +114,9 @@ export class Register implements OnInit {
 
     this.limpiarFormulario();
   }
+    /**
+    * Limpia el formulario
+    */
 
   limpiarFormulario() {
     this.name = '';

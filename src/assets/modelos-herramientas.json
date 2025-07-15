@@ -1,0 +1,42 @@
+[
+  {
+    "marca": "Makita",
+    "modelos": ["HP1640", "GA9020", "DHR202Z", "DF330D"]
+  },
+  {
+    "marca": "Bosch",
+    "modelos": ["GBH 2-26 DRE", "GWS 7-115", "GSR 1000 Smart", "GHO 6500"]
+  },
+  {
+    "marca": "DeWalt",
+    "modelos": ["DCD776C2", "DWE4056", "DWE560", "DW331K"]
+  },
+  {
+    "marca": "Black & Decker",
+    "modelos": ["KR704REK", "CS1250L", "BEH850K", "BCD700C1"]
+  },
+  {
+    "marca": "Stanley",
+    "modelos": ["SCD12S2K", "STGS7115", "SHP1300", "SS24-IN"]
+  },
+  {
+    "marca": "Einhell",
+    "modelos": ["TC-ID 710 E", "TE-CD 18/48 Li", "TE-AG 115", "TC-AP 650 E"]
+  },
+  {
+    "marca": "Hitachi",
+    "modelos": ["DV18DGL", "G12SR4", "WR18DSHL", "C7ST"]
+  },
+  {
+    "marca": "Hilti",
+    "modelos": ["TE 2-M", "SF 6H-A22", "AG 125-A22", "SID 4-A22"]
+  },
+  {
+    "marca": "Metabo",
+    "modelos": ["SB 18 L", "WEV 15-125", "KHE 2860", "UHE 2850"]
+  },
+  {
+    "marca": "Skil",
+    "modelos": ["6220", "2604", "F015 6280", "SKIL 1565"]
+  }
+]
